@@ -1,5 +1,6 @@
 
-#include "Guitar_C5.h"
+#define piezoSound A0
+#include <stdlib.h>
 
 // Sample Frequency in kHz
 const float sample_freq = 22050;
@@ -10,14 +11,40 @@ long sum, sum_old;
 int thresh = 0;
 float freq_per = 0;
 byte pd_state = 0;
+int value;
+unsigned char *rawDataOfSound = NULL;
+bool debug = false;
 
-unsigned char *rawDataOfSound;
 
-void listenTheSound() {
-  rawDataOfSound = &rawData[0];
-
-  // Definindo o tamanho dos dados de leitura
-  len = 1000;
+void listenTheSound(int waitTime, int amountOfExamples) {
+  
+  if(debug) {
+    
+    // rawDataOfSound = &rawData[0];
+    // len = 1000;
+    
+  } else {
+    free(rawDataOfSound);
+    rawDataOfSound = NULL;
+    
+    int i;
+    for(i = 0; i < amountOfExamples; i++) {
+      
+      value = analogRead(piezoSound);
+      value = map(value, 0, 1023, 0, 255);
+    
+      rawDataOfSound = (unsigned char *) realloc(rawDataOfSound, (i + 1) * sizeof(unsigned char));
+      if(!rawDataOfSound) {
+        Serial.println("Não foi possível realocar espaço...");
+      } else {
+        Serial.println("Espaço realocado!");
+      }
+      rawDataOfSound[i] = value;
+  
+      delay(waitTime);
+    }
+    len = i;
+  }  
 }
   
 int identifyFrequency() {

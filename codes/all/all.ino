@@ -1,7 +1,9 @@
 #include "engine.h"
 #include "note_detector.h"
 
-#define waitTime 3000
+#define engineTime 3000
+#define soundIntervalTime 0
+#define amountOfExamples 1000
 
 void setup() {
   Serial.begin(115200);
@@ -9,12 +11,12 @@ void setup() {
 }
 
 void loop() {
-  listenTheSound();
+  listenTheSound(soundIntervalTime, amountOfExamples);
   frequency = identifyFrequency();
   
 //  updateSpeedValue(frequency);
 //
-//  runEngine(waitTime);
+//  runEngine(engineTime);
 //  stopEngine(100);
 
   delay(1000);
