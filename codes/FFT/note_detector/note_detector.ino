@@ -160,7 +160,7 @@ float FFT(byte N,float Frequency) {
   // Real part of transform
   float out_r[data[o]] = {};
 
-  // Imaginory part of transform
+  // Imaginary part of transform
   float out_im[data[o]] = {};  
             
 
