@@ -4,7 +4,8 @@
 
 // #include "Guitar_C5.h"
 
-// Sample Frequency in kHz
+// Sample Frequency in Hz
+// No arduino, a frequência de leitura foi de 2900 Hz
 const float sample_freq = 8919;
 
 int len = 0;
@@ -79,7 +80,7 @@ int identifyFrequency() {
       pd_state = 1;
     }
   }
-  // Frequency identified in kHz
+  // Frequency identified in Hz
   freq_per = sample_freq / period;
   Serial.println(freq_per);
 
