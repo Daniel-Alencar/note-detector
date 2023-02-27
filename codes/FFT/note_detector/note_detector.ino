@@ -233,11 +233,6 @@ float FFT(byte N,float Frequency) {
     /*
     Serial.print(out_im[i], 2);
     Serial.print("Hz");
-
-    // Uncomment to print freuency bin
-    Serial.print("\  ");
-                                
-    Serial.println(out_r[i]);   
     */
   }
 
