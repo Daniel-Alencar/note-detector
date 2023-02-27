@@ -2,6 +2,7 @@
 #include "note_detector.h"
 
 #define engineTime 3000
+
 #define soundIntervalTime 0
 #define amountOfExamples 700
 

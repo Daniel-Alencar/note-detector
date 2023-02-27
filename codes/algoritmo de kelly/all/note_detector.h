@@ -5,7 +5,7 @@
 // #include "Guitar_C5.h"
 
 // Sample Frequency in kHz
-const float sample_freq = 8900;
+const float sample_freq = 8919;
 
 int len = 0;
 int i,k;
@@ -22,8 +22,8 @@ void listenTheSound(int waitTime, int amountOfExamples) {
   
   if(debug) {
     
-  // rawDataOfSound = &rawData[0];
-  // len = 1000;
+    // rawDataOfSound = &rawData[0];
+    // len = 1000;
     
   } else {
     free(rawDataOfSound);
@@ -43,11 +43,10 @@ void listenTheSound(int waitTime, int amountOfExamples) {
       rawDataOfSound = (unsigned char *) realloc(rawDataOfSound, (i + 1) * sizeof(unsigned char));
       if(!rawDataOfSound) {
         Serial.println("Não foi possível realocar espaço...");
+        rawDataOfSound[i] = value;
       } else {
         Serial.println("Espaço realocado!");
       }
-      rawDataOfSound[i] = value;
-  
       delay(waitTime);
     }
     len = amountOfExamples;
