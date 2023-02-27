@@ -1,9 +1,11 @@
 
-#define piezoSound A0
+#define piezoSound A1
 #include <stdlib.h>
 
+// #include "Guitar_C5.h"
+
 // Sample Frequency in kHz
-const float sample_freq = 22050;
+const float sample_freq = 8900;
 
 int len = 0;
 int i,k;
@@ -20,15 +22,20 @@ void listenTheSound(int waitTime, int amountOfExamples) {
   
   if(debug) {
     
-    // rawDataOfSound = &rawData[0];
-    // len = 1000;
+  // rawDataOfSound = &rawData[0];
+  // len = 1000;
     
   } else {
     free(rawDataOfSound);
     rawDataOfSound = NULL;
     
     int i;
+    int flag = 0;
+    
     for(i = 0; i < amountOfExamples; i++) {
+      
+      digitalWrite(6, flag);
+      flag = !flag ? HIGH : LOW;
       
       value = analogRead(piezoSound);
       value = map(value, 0, 1023, 0, 255);
@@ -43,7 +50,7 @@ void listenTheSound(int waitTime, int amountOfExamples) {
   
       delay(waitTime);
     }
-    len = i;
+    len = amountOfExamples;
   }  
 }
   
