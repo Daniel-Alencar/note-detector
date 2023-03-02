@@ -3,9 +3,6 @@
 
 #define engineTime 3000
 
-#define soundIntervalTime 0
-#define amountOfExamples 700
-
 void setup() {
   Serial.begin(115200);
   pinMode(6, OUTPUT);
@@ -14,7 +11,7 @@ void setup() {
 }
 
 void loop() {
-  listenTheSound(soundIntervalTime, amountOfExamples);
+  listenTheSound(amount);
   frequency = identifyFrequency();
   
   // updateSpeedValue(frequency);

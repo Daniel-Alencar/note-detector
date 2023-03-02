@@ -10,8 +10,8 @@ int Mic_pin;
 
 
 void   setup() {
-  Serial.begin(250000);
-  Mic_pin = A7;
+  Serial.begin(115200);
+  Mic_pin = A1;
 }
 
 

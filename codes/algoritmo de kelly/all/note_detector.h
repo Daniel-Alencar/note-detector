@@ -1,12 +1,12 @@
 
 #define piezoSound A1
-#include <stdlib.h>
+#define amount 700
 
 // #include "Guitar_C5.h"
 
 // Sample Frequency in Hz
-// No arduino, a frequência de leitura foi de 2900 Hz
-const float sample_freq = 8919;
+const float sample_freq = 8900;
+const float waitTime = 1 / sample_freq;
 
 int len = 0;
 int i,k;
@@ -15,11 +15,11 @@ int thresh = 0;
 float freq_per = 0;
 byte pd_state = 0;
 int value;
-unsigned char *rawDataOfSound = NULL;
+unsigned char rawDataOfSound[amount];
 bool debug = false;
 
 
-void listenTheSound(int waitTime, int amountOfExamples) {
+void listenTheSound(int amountOfExamples) {
   
   if(debug) {
     
@@ -27,27 +27,14 @@ void listenTheSound(int waitTime, int amountOfExamples) {
     // len = 1000;
     
   } else {
-    free(rawDataOfSound);
-    rawDataOfSound = NULL;
-    
     int i;
-    int flag = 0;
     
     for(i = 0; i < amountOfExamples; i++) {
-      
-      digitalWrite(6, flag);
-      flag = !flag ? HIGH : LOW;
       
       value = analogRead(piezoSound);
       value = map(value, 0, 1023, 0, 255);
     
-      rawDataOfSound = (unsigned char *) realloc(rawDataOfSound, (i + 1) * sizeof(unsigned char));
-      if(!rawDataOfSound) {
-        Serial.println("Não foi possível realocar espaço...");
-        rawDataOfSound[i] = value;
-      } else {
-        Serial.println("Espaço realocado!");
-      }
+      rawDataOfSound[i] = value;
       delay(waitTime);
     }
     len = amountOfExamples;
