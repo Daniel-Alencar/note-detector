@@ -1,3 +1,17 @@
+#define C 0
+#define C_SHARP 1
+#define D 2
+#define D_SHARP 3
+#define E 4
+#define F 5
+#define F_SHARP 6
+#define G 7
+#define G_SHARP 8
+#define A 9
+#define A_SHARP 10
+#define B 11
+
+float FFT(byte N,float Frequency);
 
 int in[128];
 
@@ -6,21 +20,9 @@ byte NoteV[13] = {8,23,40,57,76,96,116,138,162,187,213,241,255};
 
 // Top 5 frequencies peaks in descending order
 float f_peaks[5];
-int Mic_pin;
+int Mic_pin = A1;
 
-
-void   setup() {
-  Serial.begin(115200);
-  Mic_pin = A1;
-}
-
-
-void loop() {
-  note_detector();
-}
-
-
-void note_detector() {
+int note_detector() {
   long unsigned int a1,b,a2;
   float a;
   float sum1 = 0,sum2 = 0;
@@ -68,7 +70,8 @@ void note_detector() {
     }
     
     // Below loop will convert frequency value to note   
-    int j = 0,k = 0; 
+    int j = 0, k = 0;
+    
     for(int i=0; i<5;i++) {
       if(f_peaks[i] > 1040) {f_peaks[i]=0;}
       if(f_peaks[i] >= 65.4 && f_peaks[i] <= 130.8) {f_peaks[i]=255*((f_peaks[i]/65.4)-1);}
@@ -121,18 +124,20 @@ void note_detector() {
     
     k = j;
     
-    if(k==0) {Serial.println("C");}
-    if(k==1) {Serial.println("C#");}
-    if(k==2) {Serial.println("D");}
-    if(k==3) {Serial.println("D#");}
-    if(k==4) {Serial.println("E");}
-    if(k==5) {Serial.println("F");}
-    if(k==6) {Serial.println("F#");}
-    if(k==7) {Serial.println("G");}
-    if(k==8) {Serial.println("G#");}
-    if(k==9) {Serial.println("A");}
-    if(k==10){Serial.println("A#");}
-    if(k==11){Serial.println("B");}
+    if(k==C) {Serial.println("C");}
+    if(k==C_SHARP) {Serial.println("C#");}
+    if(k==D) {Serial.println("D");}
+    if(k==D_SHARP) {Serial.println("D#");}
+    if(k==E) {Serial.println("E");}
+    if(k==F) {Serial.println("F");}
+    if(k==F_SHARP) {Serial.println("F#");}
+    if(k==G) {Serial.println("G");}
+    if(k==G_SHARP) {Serial.println("G#");}
+    if(k==A) {Serial.println("A");}
+    if(k==A_SHARP){Serial.println("A#");}
+    if(k==B){Serial.println("B");}
+
+    return k;
   }
 }
 
